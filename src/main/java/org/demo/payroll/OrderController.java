@@ -59,7 +59,7 @@ class OrderController {
     @DeleteMapping("/orders/{id}/cancel")
     ResponseEntity<?> cancel(@PathVariable Long id) {
 
-        Order order = orderRepository.findById(id) //
+        Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(id));
 
         if (order.getStatus() == Status.IN_PROGRESS) {

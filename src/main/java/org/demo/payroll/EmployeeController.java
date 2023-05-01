@@ -29,10 +29,10 @@ class EmployeeController {
 
     // Aggregate root
     // tag::get-aggregate-root[]
-//    @GetMapping("/employees")
-//    List<Employee> all() {
-//        return repository.findAll();
-//    }
+    // @GetMapping("/employees")
+    // List<Employee> all() {
+    //     return repository.findAll();
+    // }
     @GetMapping("/employees")
     CollectionModel<EntityModel<Employee>> all() {
 
@@ -53,9 +53,10 @@ class EmployeeController {
                 .body(entityModel);
     }
 
-    /*Employee newEmployee(@RequestBody Employee newEmployee) {
-        return repository.save(newEmployee);
-    }*/
+    // @PostMapping("/employees")
+    // Employee newEmployee(@RequestBody Employee newEmployee) {
+    //     return repository.save(newEmployee);
+    // }
 
     // Single item
     @GetMapping("/employees/{id}")
@@ -63,12 +64,11 @@ class EmployeeController {
         Employee employee = repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
         return assembler.toModel(employee);
     }
-    //    @GetMapping("/employees/{id}")
-//    Employee one(@PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .orElseThrow(() -> new EmployeeNotFoundException(id));
-//    }
+    // @GetMapping("/employees/{id}")
+    // Employee one(@PathVariable Long id) {
+    //     return repository.findById(id)
+    //             .orElseThrow(() -> new EmployeeNotFoundException(id));
+    // }
 
     @PutMapping("/employees/{id}")
     ResponseEntity<?> replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
@@ -89,27 +89,25 @@ class EmployeeController {
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
 
-//        return repository.findById(id)
-//                .map(employee -> {
-//                    employee.setName(newEmployee.getName());
-//                    employee.setRole(newEmployee.getRole());
-//                    return repository.save(employee);
-//                })
-//                .orElseGet(() -> {
-//                    newEmployee.setId(id);
-//                    return repository.save(newEmployee);
-//                });
+        // return repository.findById(id)
+        //        .map(employee -> {
+        //             employee.setName(newEmployee.getName());
+        //             employee.setRole(newEmployee.getRole());
+        //                  return repository.save(employee);
+        //         })
+        //             .orElseGet(() -> {
+        //                  newEmployee.setId(id);
+        //                  return repository.save(newEmployee);
+        //              });
 
     }
 
     @DeleteMapping("/employees/{id}")
     ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
-
         repository.deleteById(id);
-
         return ResponseEntity.noContent().build();
     }
-    /*void deleteEmployee(@PathVariable Long id) {
-        repository.deleteById(id);
-    }*/
+    // void deleteEmployee(@PathVariable Long id) {
+    //     repository.deleteById(id);
+    // }
 }
